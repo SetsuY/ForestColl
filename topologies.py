@@ -1,4 +1,5 @@
 import networkx as nx
+import fileinput
 
 
 NVLINK_BW = 300  # GB/s
@@ -62,3 +63,18 @@ def mi250_topology(nnode: int):
                 G.add_edge((-1, "IB", 0), (a, "GPU", b), capacity=MI250_IB_BW)
                 G.add_edge((a, "GPU", b), (-1, "IB", 0), capacity=MI250_IB_BW)
     return G, compute_nodes
+
+ARB_BW = 1
+def arbitrary(map_f: str):
+    G = nx.DiGraph()
+    with open(map_f, mode='r') as f_raw:
+        f = f_raw.read()
+        for from_node, line in enumerate(f.split("\n")):
+            from_ident = int(from_node)
+            for to_node, deg in enumerate(line.split()):
+                deg_n = int(deg)
+                if deg_n != 0:
+                    to_ident = int(to_node)
+                    G.add_edge(from_ident, to_ident, capacity=ARB_BW * deg_n)
+    return G, None
+

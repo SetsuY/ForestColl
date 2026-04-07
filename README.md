@@ -1,5 +1,25 @@
 # ForestColl
 
+## Running Instructions
+
+Scheduling:
+
+```
+python3 main.py <adjacency matrix file>
+```
+
+Outputs tree xml with the same file name of adjacency matrix.
+
+Switch removal:
+
+```
+python3 killswitch.py <adjacency matrix file> <switch start id>
+```
+
+Outputs a switchless adjacency matrix, and a json dict to convert edges back to switch paths. The input is a adjacency matrix with line [0, \<switch start id\>) describing connectivity of compute nodes and [\<switch start id\>, end) describing switches.
+
+## Original Readme Below
+
 Paper: [ForestColl: Throughput-Optimal Collective Communications on Heterogeneous Network Fabrics](https://arxiv.org/abs/2402.06787)
 
 For the large-scale schedule generation experiments in the paper, we used a java-based implementation instead of the python version in this repository, due to performance considerations. The java implementation is to be released and available upon request.
